@@ -9,7 +9,8 @@ namespace ListaDeContatos.Data
 {
     public class ListaContatosContext : DbContext
     {
-        public ListaContatosContext(DbContextOptions<ListaContatosContext> options) : base(options)
+        public ListaContatosContext(DbContextOptions<ListaContatosContext> options) 
+            : base(options)
         {
 
         }

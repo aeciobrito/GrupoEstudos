@@ -1,5 +1,6 @@
 ﻿using ListaDeContatos.Data;
 using ListaDeContatos.Models;
+using ListaDeContatos.Models.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,11 +22,20 @@ namespace ListaDeContatos.Controllers
         }
 
         [HttpPost]
-        public IActionResult CadastrarContato(Contato contato)
+        public IActionResult CadastrarContato(ContatoDto contatoDto)
         {
+            var contato = new Contato();
+
+            contato.Nascimento = contatoDto.Nascimento;
+            contato.PrimeiroNome = contatoDto.PrimeiroNome;
+            contato.UltimoNome = contatoDto.UltimoNome;
+            contato.Telefone = contatoDto.Telefone;
+            contato.Endereco = contatoDto.Endereco;
+            contato.CriacaoDoContato = DateTime.Now;
+
             _context.Contatos.Add(contato);
             _context.SaveChanges();
-            return Ok("Contato cadastrado.");
+            return Ok(contato);
         }
     }
 }

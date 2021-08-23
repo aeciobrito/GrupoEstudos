@@ -4,14 +4,16 @@ using ListaDeContatos.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ListaDeContatos.Migrations
 {
     [DbContext(typeof(ListaContatosContext))]
-    partial class ListaContatosContextModelSnapshot : ModelSnapshot
+    [Migration("20210823233859_TipoTelefone")]
+    partial class TipoTelefone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,13 +28,22 @@ namespace ListaDeContatos.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Bairro")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CriacaoDoContato")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Nascimento")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("NumeroDaResidencia")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PrimeiroNome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rua")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UltimoNome")
@@ -45,30 +56,6 @@ namespace ListaDeContatos.Migrations
 
             modelBuilder.Entity("ListaDeContatos.Models.Contato", b =>
                 {
-                    b.OwnsOne("ListaDeContatos.Models.ValueObject.Endereco", "Endereco", b1 =>
-                        {
-                            b1.Property<int>("ContatoId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int")
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                            b1.Property<string>("Bairro")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("Numero")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("Rua")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("ContatoId");
-
-                            b1.ToTable("Contatos");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ContatoId");
-                        });
-
                     b.OwnsOne("ListaDeContatos.Models.ValueObject.Telefone", "Telefone", b1 =>
                         {
                             b1.Property<int>("ContatoId")
@@ -89,8 +76,6 @@ namespace ListaDeContatos.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("ContatoId");
                         });
-
-                    b.Navigation("Endereco");
 
                     b.Navigation("Telefone");
                 });
